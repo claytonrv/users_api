@@ -4,8 +4,7 @@ services:
         user: ${CURRENT_UID}
         image: user_crud
         build: ./
-        restart: aways
-        command: nohup python /opt/programs/user_crud/user_api.py & > /dev/null
+        command: nohup python /app/user_manager/user_api.py & > /dev/null
         ports: 
             - 5000:5000
         links:
@@ -13,7 +12,7 @@ services:
     mysql:
         image: mysql:5.7
         ports:
-            - "3306:3306"
+            - "3309:3306"
         volumes:
             - /data:/var/lib/mysql
         environment: 
