@@ -1,0 +1,27 @@
+version: '3'
+services:
+    application:
+        user: ${CURRENT_UID}
+        image: user_crud
+        build: ./
+        restart: aways
+        command: nohup python /opt/programs/user_crud/user_api.py & > /dev/null
+        ports: 
+            - 5000:5000
+        links:
+            - mysql
+    mysql:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        volumes:
+            - /data:/var/lib/mysql
+        environment: 
+            - MYSQL_ROOT_PASSWORD="Admin@1234"
+            - MYSQL_DATABASE="user_manager"
+        networks:
+            - mysql-compose-network
+
+networks: 
+    mysql-compose-network:
+        driver: bridge
